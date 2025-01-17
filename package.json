@@ -6,8 +6,8 @@
     "build": "parcel build"
   },
   "dependencies": {
-    "chess.js": "^1.0.0",
-    "chessground": "^9.1.1"
+    "chessground": "^9.1.1",
+    "chessops": "^0.14.2"
   },
   "devDependencies": {
     "parcel": "^2.13.3"
