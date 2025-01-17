@@ -1,10 +1,14 @@
-import { Chess, parseSquare, type Move, fen } from "chessops";
+import { Chess, parseSquare, type Move, fen, makeUci } from "chessops";
 import { Chessground } from "chessground";
+
+import { pickBestMove } from "./movePicker";
 
 const toPlayDisplay = document.querySelector<HTMLSpanElement>("#to-play")!;
 
 const fenForm = document.querySelector<HTMLFormElement>("#fen-form")!;
 const fenInput = document.querySelector<HTMLInputElement>("#fen")!;
+
+const bestMoveDisplay = document.querySelector<HTMLSpanElement>("#best-move")!;
 
 // Stateful chess
 let chess = Chess.default();
@@ -29,6 +33,9 @@ const board = Chessground(document.querySelector<HTMLDivElement>("#board")!, {
           chess.play({ ...move, promotion: "queen" });
         board.set({ fen: fen.makeBoardFen(chess.board) });
         toPlayDisplay.textContent = `${chess.turn} to play`;
+        bestMoveDisplay.textContent = `Best move: ${makeUci(
+          pickBestMove(chess.clone())
+        )}`;
       },
     },
   },
@@ -46,6 +53,7 @@ fenForm.addEventListener("submit", (event) => {
 
     board.set({ fen: fen.makeBoardFen(chess.board) });
     toPlayDisplay.textContent = `${chess.turn} to play`;
+    bestMoveDisplay.textContent = `Best move: ${makeUci(pickBestMove(chess))}`;
   } catch (error) {
     console.error(error);
   }
