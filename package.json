@@ -1,5 +1,10 @@
 {
   "source": "src/index.html",
+  "targets": {
+    "default": {
+      "publicUrl": "./"
+    }
+  },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "dev": "parcel",
